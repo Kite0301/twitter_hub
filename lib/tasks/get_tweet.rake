@@ -22,7 +22,8 @@ namespace :tweets do
       data['uri'] = tweet.uri.to_s.split('/')[-1]
       tweet = Tweet.find_by(uri: data['uri'])
       if tweet
-        tweet.update(data)
+        break
+        puts '--------------- 既に存在するTweet ---------------'
       else
         Tweet.create(data)
       end
