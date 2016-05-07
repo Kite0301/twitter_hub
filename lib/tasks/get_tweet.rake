@@ -14,7 +14,7 @@ namespace :tweets do
     # client.update("twitter test")
     username = "k_tooooooooooo"
 
-    client.user_timeline(username, { count: 10 } ).each do |timeline|
+    client.user_timeline(username, { count: 100 } ).each do |timeline|
       tweet = client.status(timeline.id)
       data = Hash.new
       data['date'] = tweet.created_at
@@ -22,7 +22,8 @@ namespace :tweets do
       data['uri'] = tweet.uri.to_s.split('/')[-1]
       tweet = Tweet.find_by(uri: data['uri'])
       if tweet
-        tweet.update(data)
+        puts '既に存在するTweetです'
+        break
       else
         Tweet.create(data)
       end
